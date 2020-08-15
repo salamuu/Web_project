@@ -1,8 +1,8 @@
 <style>
 body {
-	background:#1E90FF;
+	background: #1E90FF;
 }
-table { border-collapse: separate; background-color: #FFFFFF; border-spacing: 0; width: 85%; color: #666666; text-shadow: 0 1px 0 #FFFFFF; border: 1px solid #CCCCCC; box-shadow: 0; margin: 0 auto;font-family: arial; }
+table { border-collapse: separate; background-color: #FFFFFF; border-spacing: 0; width: 80%; color: #666666; text-shadow: 0 1px 0 #FFFFFF; border: 1px solid #CCCCCC; box-shadow: 0; margin: 0 auto;font-family: arial; }
 table thead tr th { background: none repeat scroll 0 0 #EEEEEE; color: #222222; padding: 10px 14px; text-align: left; border-top: 0 none; font-size: 12px; }
 table tbody tr td{
     background-color: #FFFFFF;
@@ -12,9 +12,10 @@ table tbody tr td{
 	border-top: 1px solid #DDDDDD;
 }
 #log {
-	width: 84%;
+	width: 80%;
 	text-align: right;
 	margin: 20px auto;
+	
 	font-family: arial;
 }
 #log a {
@@ -28,7 +29,7 @@ table tbody tr td{
     padding: 12px;
     position: relative;
 	margin: 20px auto;
-	width: 83%;
+	width: 78%;
 	clear: both;
 	height: 34px;
 }
@@ -81,43 +82,29 @@ a#add {
     })
   </script>
 <div id="log">
-Home | <a href="offices.php">Outgoing Offices</a> | <a href="doctype.php"> Incoming File</a> | <a href="../index.php">Logout</a>
+<a href="index.php">Home</a> | <a href="offices.php">Outgoing  Offices</a> | Letter Type | <a href="../index.php">Logout</a>
 </div>
 <div id="formdesign">
-<input type="text" name="filter" value="" id="filter" placeholder="Search Transaction..." autocomplete="off" />
-<a rel="facebox" href="add.php" id="add">Add Letter</a>
+<input type="text" name="filter" value="" id="filter" placeholder="Search Document Type..." autocomplete="off" />
+<a rel="facebox" href="adddoc.php" id="add">Add File</a>
 </div>
 <table cellspacing="0" cellpadding="2" id="resultTable">
 <thead>
 	<tr>
-		<th width="8%"> Received Date</th>
-		<th width="7%"> Date Out</th>
-		<th width="10%"> Received By </th>
-		<th width="10%"> Incoming File </th>
-		<th width="10%"> Letter's Topic </th>
-		<th width="10%"> Outgoing Office </th>
-		<th width="8%"> Refference NO </th>
-		<th width="10%"> Letter's Date </th>
-		<th width="10%"> Action </th>
+		<th width="70%"> Name </th>
+		<th width="30%"> Action </th>
 	</tr>
 </thead>
 <tbody>
 	<?php
 		include('connect.php');		
-		$result = $db->prepare("SELECT * FROM transaction ORDER BY id DESC");
+		$result = $db->prepare("SELECT * FROM doc_type ORDER BY id DESC");
 		$result->execute();
 		for($i=0; $row = $result->fetch(); $i++){
 	?>
 	<tr class="record">
-		<td><?php echo $row['date']; ?></td>
-		<td><?php echo $row['dateout']; ?></td>
-		<td><?php echo $row['receive_by']; ?></td>
-		<td><?php echo $row['doc_type']; ?></td>
-		<td><?php echo $row['description']; ?></td>
-		<td><?php echo $row['office']; ?></td>
-		<td><?php echo $row['status']; ?></td>
-		<td><?php echo $row['ft']; ?></td>
-		<td><a rel="facebox" href="editform.php?id=<?php echo $row['id']; ?>"> edit </a> | <a href="#" id="<?php echo $row['id']; ?>" class="delbutton" title="Click To Delete">delete</a></td>
+		<td><?php echo $row['name']; ?></td>
+		<td><a href="#" id="<?php echo $row['id']; ?>" class="delbutton" title="Click To Delete">delete</a></td>
 	</tr>
 	<?php
 		}
@@ -144,7 +131,7 @@ var info = 'id=' + del_id;
 
  $.ajax({
    type: "GET",
-   url: "delete.php",
+   url: "deletedoc.php",
    data: info,
    success: function(){
    
